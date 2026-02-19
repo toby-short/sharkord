@@ -31,6 +31,7 @@ const useVoiceRefs = (
   const {
     videoRef,
     audioRef,
+    audioGainRef,
     screenShareRef,
     screenShareAudioRef,
     externalAudioRef,
@@ -110,7 +111,7 @@ const useVoiceRefs = (
       audioRef.current.srcObject = audioStream;
     }
 
-    audioRef.current.volume = userVolume / 100;
+    audioRef.current.volume = 1;
   }, [audioStream, audioRef, userVolume]);
 
   useEffect(() => {

@@ -7,7 +7,7 @@ import { getTRPCClient } from '@/lib/trpc';
 import { StreamKind, type TVoiceUserState } from '@sharkord/shared';
 import { Device } from 'mediasoup-client';
 import type { RtpCapabilities } from 'mediasoup-client/types';
-import {
+import React, {
   createContext,
   memo,
   useCallback,
@@ -32,6 +32,7 @@ import { VolumeControlProvider } from './volume-control-context';
 type AudioVideoRefs = {
   videoRef: React.RefObject<HTMLVideoElement | null>;
   audioRef: React.RefObject<HTMLAudioElement | null>;
+  audioGainRef: React.RefObject<GainNode | null>;
   screenShareRef: React.RefObject<HTMLVideoElement | null>;
   screenShareAudioRef: React.RefObject<HTMLAudioElement | null>;
   externalAudioRef: React.RefObject<HTMLAudioElement | null>;
@@ -89,6 +90,7 @@ const VoiceProviderContext = createContext<TVoiceProvider>({
   getOrCreateRefs: () => ({
     videoRef: { current: null },
     audioRef: { current: null },
+    audioGainRef: { current: null},
     screenShareRef: { current: null },
     screenShareAudioRef: { current: null },
     externalAudioRef: { current: null },
@@ -133,6 +135,7 @@ const VoiceProvider = memo(({ children }: TVoiceProviderProps) => {
       audioVideoRefsMap.current.set(remoteId, {
         videoRef: { current: null },
         audioRef: { current: null },
+        audioGainRef: { current: null},
         screenShareRef: { current: null },
         screenShareAudioRef: { current: null },
         externalAudioRef: { current: null },

@@ -8,6 +8,7 @@ import { useOwnUserId, useUserById } from '@/features/server/users/hooks';
 import { useVoiceChannelAudioExternalStreams } from '@/features/server/voice/hooks';
 import {
   Button,
+  Input,
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -90,7 +91,8 @@ const AudioStreamControl = memo(
           </div>
 
           <span className="text-xs text-muted-foreground w-8 text-right">
-            {volume}%
+            <Input value={volume} type="number" min="0" onChange={(e) => setVolume(volumeKey, Number(e.target.value))} />
+            %
           </span>
         </div>
       </div>
